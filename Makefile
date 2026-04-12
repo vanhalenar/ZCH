@@ -1,4 +1,4 @@
-TB_SRC := tb_normalizer.sv
+TB_SRC := tb_alphabet_mapper.sv
 SIM_DIR := sim
 SIM_BIN := $(SIM_DIR)/sim_icarus
 VCD := $(SIM_DIR)/tb_normalizer.vcd
@@ -19,4 +19,4 @@ $(SIM_DIR):
 	mkdir -p $(SIM_DIR)
 
 clean:
-	rm -f $(SIM_BIN) $(VCD)
+	rm -f $(SIM_BIN) *.vcd
