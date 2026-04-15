@@ -1,5 +1,5 @@
 TB_SRC := tb_top.sv
-SRCS := normalizer.sv offsetter.sv alphabet_mapper.sv top.sv
+SRCS := normalizer.sv offsetter.sv alphabet_mapper.sv top.sv counter.sv input_rom.sv
 SIM_DIR := sim
 SIM_BIN := $(SIM_DIR)/sim_icarus
 VCD := $(SIM_DIR)/tb_top.vcd

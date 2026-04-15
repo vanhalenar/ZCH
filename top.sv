@@ -1,32 +1,56 @@
 module top (
-    input clk, rst, start, cfg_we,
+    input clk, rst, cfg_we,
     input [4:0] key,
-    input [7:0] in, //temporary, there should be a module for reading data from input ROM
-    output reg [7:0] out, //also temporary?
-    output reg done
+    output reg [7:0] out_symbol,
+    output reg done,
+    output reg [1:0] rom_addr,
+    output reg alphabet_mapper_vld_out,
+    output reg [4:0] normalizer_out_symbol, offsetter_out_symbol
 );
-    wire [4:0] index, addr;
+    //wire [4:0] normalizer_out_symbol, offsetter_out_symbol;
+    wire [7:0] input_rom_out_byte;
+    wire counter_vld_out;
+    wire normalizer_vld_out;
+    wire offsetter_vld_out;
+
+    counter counter_inst (
+        .clk (clk),
+        .rst (rst),
+        .vld_out (counter_vld_out),
+        .data_pointer (rom_addr)
+    );
+
+    input_rom input_rom_inst (
+        .data (input_rom_out_byte),
+        .addr (rom_addr)
+    );
 
     normalizer normalizer_inst (
         .clk (clk),
         .rst (rst),
-        .in (in),
-        .index (index)
+        .vld_in (counter_vld_out),
+        .in_byte (input_rom_out_byte),
+        .out_symbol (normalizer_out_symbol),
+        .vld_out (normalizer_vld_out)
     );
 
     offsetter offsetter_inst (
         .clk (clk),
         .rst (rst),
-        .in (index),
+        .vld_in (normalizer_vld_out),
+        .in_symbol (normalizer_out_symbol),
         .key (key),
-        .addr (addr)
+        .out_symbol (offsetter_out_symbol),
+        .vld_out (offsetter_vld_out)
     );
 
     alphabet_mapper alphabet_mapper_inst (
         .clk (clk),
         .rst (rst),
-        .addr (addr),
-        .symbol (out)
+        .vld_in (offsetter_vld_out),
+        .in_symbol (offsetter_out_symbol),
+        .out_symbol (out_symbol),
+        .vld_out (alphabet_mapper_vld_out)
     );
 
     

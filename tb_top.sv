@@ -1,22 +1,26 @@
 `timescale 1ns / 1ps
 
 module tb_top;
-    reg clk, rst, start, cfg_we;
+    reg clk, rst, cfg_we;
     reg [4:0] key;
-    reg [7:0] in;
-    reg [7:0] out;
+    reg [7:0] out_symbol;
     wire done;
+    wire [1:0] rom_addr;
+    wire alphabet_mapper_vld_out;
+    wire [4:0] normalizer_out_symbol, offsetter_out_symbol;
 
     top dut
     (
         .clk (clk),
         .rst (rst),
-        .start (start),
         .cfg_we (cfg_we),
         .key (key),
-        .in (in),
-        .out (out),
-        .done (done)
+        .out_symbol (out_symbol),
+        .done (done),
+        .rom_addr (rom_addr),
+        .alphabet_mapper_vld_out (alphabet_mapper_vld_out),
+        .normalizer_out_symbol (normalizer_out_symbol),
+        .offsetter_out_symbol (offsetter_out_symbol)
     );
 
     initial clk = 0;
@@ -28,16 +32,38 @@ module tb_top;
     end
 
     initial begin
-        $monitor("time=%0t rst=%b start=%b cfg_we=%b key=%0d in=%0d out=%0d done=%b", $time, rst, start, cfg_we, key, in, out, done);
+        $monitor("time=%0t rst=%b cfg_we=%b key=%0d out=%0d rom_addr=%0d done=%b vld_out=%b, normalizer_out_symbol=%0d offsetter_out_symbol=%0d", $time, rst, cfg_we, key, out_symbol, rom_addr, done, alphabet_mapper_vld_out, normalizer_out_symbol, offsetter_out_symbol);
     end
 
     initial begin
+        rst = 1;
+        key = 1;
+        /*#7 in = 'h77;
+        #10 in = 'h78;
+        #10 in = 'h79;*/
+        #10;
+
         rst = 0;
-        key = 2;
-        in = 'h68;
-        #10 in = 'h69;
-        #10 in = 'h61;
-        #50;
+
+        /*#10 assert (out == 'h7a)
+        else   $error("out expected 0x7a, got 0x%0h", out);
+
+        #10 assert (out == 'h61)
+        else   $error("out expected 0x61, got 0x%0h", out);
+
+        #10 assert (out == 'h62)
+        else   $error("out expected 0x62, got 0x%0h", out);*/
+        
+        /*#20;
+
+        cfg_we = 1;
+        #7 key = 4;
+
+        #10 in = 'h77;
+        #10 in = 'h78;
+        #10 in = 'h79;     */  
+
+        #100;
         $finish;
     end
 

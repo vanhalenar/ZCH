@@ -1,13 +1,15 @@
 module offsetter (
-    input clk, rst,
-    input [4:0] in,
+    input clk, rst, vld_in,
+    input [4:0] in_symbol,
     input [4:0] key,
-    output reg [4:0] addr
+    output reg vld_out,
+    output reg [4:0] out_symbol
 );
     always @(posedge clk or posedge rst) begin
         if (rst)
-            addr <= 0;
+            out_symbol <= 0;
         else
-            addr <= (in + key) % 26;
+            out_symbol <= (in_symbol + key) % 26;
+        vld_out <= vld_in;
     end
 endmodule

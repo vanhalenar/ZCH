@@ -1,13 +1,15 @@
 module normalizer (
-    input clk, rst,
-    input [7:0] in,
-    output reg [4:0] index
+    input clk, rst, vld_in,
+    input [7:0] in_byte,
+    output reg vld_out,
+    output reg [4:0] out_symbol
 );
 
     always @(posedge clk or posedge rst) begin
         if (rst)
-            index <= 0;
+            out_symbol <= 0;
         else
-            index <= in - 'h61;
+            out_symbol <= in_byte - 'h61;
+        vld_out <= vld_in;
     end
 endmodule
