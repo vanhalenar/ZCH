@@ -8,7 +8,7 @@ module offsetter (
     always @(posedge clk or posedge rst) begin
         if (rst)
             out_symbol <= 0;
-        else
+        else 
             out_symbol <= (in_symbol + key) % 26;
         vld_out <= vld_in;
     end

@@ -14,7 +14,7 @@ module tb_top;
         .clk (clk),
         .rst (rst),
         .cfg_we (cfg_we),
-        .key (key),
+        .in_key (key),
         .out_symbol (out_symbol),
         .done (done),
         .rom_addr (rom_addr),
@@ -32,18 +32,21 @@ module tb_top;
     end
 
     initial begin
-        $monitor("time=%0t rst=%b cfg_we=%b key=%0d out=%0d rom_addr=%0d done=%b vld_out=%b, normalizer_out_symbol=%0d offsetter_out_symbol=%0d", $time, rst, cfg_we, key, out_symbol, rom_addr, done, alphabet_mapper_vld_out, normalizer_out_symbol, offsetter_out_symbol);
+        $monitor("time=%0t rst=%b cfg_we=%b key=%0d out=%0d rom_addr=%0d done=%b vld_out=%b normalizer_out_symbol=%0d offsetter_out_symbol=%0d", $time, rst, cfg_we, key, out_symbol, rom_addr, done, alphabet_mapper_vld_out, normalizer_out_symbol, offsetter_out_symbol);
     end
 
     initial begin
         rst = 1;
-        key = 1;
+        //key = 1;
         /*#7 in = 'h77;
         #10 in = 'h78;
         #10 in = 'h79;*/
         #10;
 
         rst = 0;
+        cfg_we = 1;
+        key = 3;
+        #15 cfg_we = 0;
 
         /*#10 assert (out == 'h7a)
         else   $error("out expected 0x7a, got 0x%0h", out);
