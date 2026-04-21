@@ -1,3 +1,7 @@
+// counter which acts as pointer to a symbol in input ROM
+// while reset is high, does nothing
+// once reset is lowered, counts to 3, then stops
+// while counting is active, transmits valid signal vld_out
 module counter (
     input clk, rst,
     output reg vld_out,

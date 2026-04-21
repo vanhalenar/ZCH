@@ -5,10 +5,10 @@ module input_rom (
   reg [7:0] rom [0:3];
 
   initial begin
-    rom[0] = 8'h62;
-    rom[1] = 8'h67;
-    rom[2] = 8'h6b;
-    rom[3] = 8'h79;
+    rom[0] = 8'h77; // w
+    rom[1] = 8'h78; // x
+    rom[2] = 8'h79; // y
+    rom[3] = 8'h7a; // z
   end
 
   always @(*) begin

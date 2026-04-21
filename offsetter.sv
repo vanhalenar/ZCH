@@ -1,3 +1,4 @@
+// performs the `(symbol + key) % key` operation
 module offsetter (
     input clk, rst, vld_in,
     input [4:0] in_symbol,

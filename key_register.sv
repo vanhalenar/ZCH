@@ -1,3 +1,4 @@
+// register containing caesar cipher key
 module key_register (
     input clk, rst, cfg_we,
     input [4:0] in_key,

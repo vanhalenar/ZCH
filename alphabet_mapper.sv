@@ -1,3 +1,4 @@
+// maps incoming 5 bit symbols to ASCII representation by adding 0x61
 module alphabet_mapper (
     input clk, rst, vld_in,
     input [4:0] in_symbol,

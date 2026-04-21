@@ -1,3 +1,7 @@
+// transforms the input from ASCII representation to 5 bit alphabet mapping by subtracting 0x61
+// expects only lowercase ASCII symbols a-z
+// a = 0  = 00000
+// z = 25 = 11001
 module normalizer (
     input clk, rst, vld_in,
     input [7:0] in_byte,

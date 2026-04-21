@@ -1,13 +1,12 @@
+// connects all modules together
 module top (
     input clk, rst, cfg_we,
     input [4:0] in_key,
     output reg [7:0] out_symbol,
-    output reg done,
     output reg [1:0] rom_addr,
-    output reg alphabet_mapper_vld_out,
-    output reg [4:0] normalizer_out_symbol, offsetter_out_symbol
+    output reg alphabet_mapper_vld_out
 );
-    //wire [4:0] normalizer_out_symbol, offsetter_out_symbol;
+    wire [4:0] normalizer_out_symbol, offsetter_out_symbol;
     wire [4:0] key;
     wire [7:0] input_rom_out_byte;
     wire counter_vld_out;
